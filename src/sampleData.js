@@ -1,11 +1,16 @@
 import { faker } from "@faker-js/faker";
 
 Array.prototype.unique = function () {
-  return this.filter((value, index, self) => self.indexOf(value) === index);
+  return this.filter(
+    (value, index, self) =>
+      self.indexOf(value) === index
+  );
 };
 
 Array.prototype.pickRandom = function () {
-  return this[Math.floor(Math.random() * this.length)];
+  return this[
+    Math.floor(Math.random() * this.length)
+  ];
 };
 
 const today = new Date();

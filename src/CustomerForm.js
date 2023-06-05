@@ -5,10 +5,10 @@ export const CustomerForm = ({
   onSubmit,
 }) => {
   const [customer, setCustomer] = useState(original);
-  const handleChangeFirstName = ({ target }) =>
+  const handleChange = ({ target }) =>
     setCustomer((customer) => ({
       ...customer,
-      firstName: target.value,
+      [target.name]: target.value,
     }));
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,7 +22,25 @@ export const CustomerForm = ({
         name="firstName"
         id="firstName"
         value={customer.firstName}
-        onChange={handleChangeFirstName}
+        onChange={handleChange}
+      />
+      <label htmlFor="lastName">Last Name</label>
+      <input
+        type="text"
+        name="lastName"
+        id="lastName"
+        value={customer.lastName}
+        onChange={handleChange}
+      />
+      <label htmlFor="phoneNumber">
+        Phone Number
+      </label>
+      <input
+        type="text"
+        name="phoneNumber"
+        value={customer.phoneNumber}
+        id="phoneNumber"
+        onChange={handleChange}
       />
       <input type="submit" value="Add" />
     </form>

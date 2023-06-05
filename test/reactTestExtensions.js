@@ -1,5 +1,4 @@
-import { act } from "react-dom/test-utils/index";
-import ReactDom from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { act } from "react-dom/test-utils";
 
 export let container;
@@ -14,3 +13,6 @@ export const render = (component) => {
     ReactDOM.createRoot(container).render(component);
   });
 };
+
+export const click = (element) =>
+  act(() => element.click());

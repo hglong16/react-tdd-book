@@ -25,15 +25,14 @@ describe("Appointment", () => {
   });
 
   const appointmentTable = () =>
-    element(
-      "#appointmentView > table"
-    );
+    element("#appointmentView > table");
 
-  it("render a table", () => {
+  it("renders a table", () => {
     render(<Appointment customer={blankCustomer} />);
     expect(appointmentTable()).not.toBeNull();
   });
-  it("render the customer first name", () => {
+
+  it("renders the customer first name", () => {
     const customer = { firstName: "Ashley" };
     render(<Appointment customer={customer} />);
     expect(appointmentTable()).toContainText(
@@ -41,7 +40,7 @@ describe("Appointment", () => {
     );
   });
 
-  it("render another customer first name", () => {
+  it("renders another customer first name", () => {
     const customer = { firstName: "Jordan" };
     render(<Appointment customer={customer} />);
     expect(appointmentTable()).toContainText(
@@ -49,13 +48,13 @@ describe("Appointment", () => {
     );
   });
 
-  it("render the customer last name", () => {
+  it("renders the customer last name", () => {
     const customer = { lastName: "Johns" };
     render(<Appointment customer={customer} />);
     expect(appointmentTable()).toContainText("Johns");
   });
 
-  it("render another customer last name", () => {
+  it("renders another customer last name", () => {
     const customer = { lastName: "Nguyen" };
     render(<Appointment customer={customer} />);
     expect(appointmentTable()).toContainText(
@@ -63,7 +62,7 @@ describe("Appointment", () => {
     );
   });
 
-  it("render the customer phoneNumber", () => {
+  it("renders the customer phoneNumber", () => {
     const customer = { phoneNumber: "234567890" };
     render(<Appointment customer={customer} />);
     expect(appointmentTable()).toContainText(
@@ -71,7 +70,7 @@ describe("Appointment", () => {
     );
   });
 
-  it("render the stylist name", () => {
+  it("renders the stylist name", () => {
     render(
       <Appointment
         customer={blankCustomer}
@@ -125,9 +124,7 @@ describe("Appointment", () => {
 
   it("renders an h3 element", () => {
     render(<Appointment customer={blankCustomer} />);
-    expect(
-      element("h3")
-    ).not.toBeNull();
+    expect(element("h3")).not.toBeNull();
   });
 
   it("renders the time as the heading", () => {
@@ -141,9 +138,9 @@ describe("Appointment", () => {
       />
     );
 
-    expect(
-      element("h3").textContent
-    ).toEqual("Today’s appointment at 09:00");
+    expect(element("h3")).toContainText(
+      "Today’s appointment at 09:00"
+    );
   });
 });
 
@@ -164,19 +161,18 @@ describe("AppointmentsDayView", () => {
     initializeReactContainer();
   });
 
+  const secondButton = () => elements("button")[1];
+
   it("renders a div with the right id", () => {
     render(<AppointmentsDayView appointments={[]} />);
     expect(
-      element(
-        "div#appointmentsDayView"
-      )
+      element("div#appointmentsDayView")
     ).not.toBeNull();
   });
 
   it("renders an ol element to display appointments", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    const listElement = element("ol");
-    expect(listElement).not.toBeNull();
+    expect(element("ol")).not.toBeNull();
   });
 
   it("renders an li for each appointment", () => {
@@ -186,10 +182,7 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const listChildren =
-      elements("ol > li");
-
-    expect(listChildren).toHaveLength(2);
+    expect(elements("ol > li")).toHaveLength(2);
   });
 
   it("renders the time of each appointment", () => {
@@ -198,20 +191,15 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const listChildren =
-      elements("li");
-
-    expect(listChildren[0].textContent).toEqual(
-      "12:00"
-    );
-    expect(listChildren[1].textContent).toEqual(
-      "13:00"
-    );
+    expect(textOf(elements("li"))).toEqual([
+      "12:00",
+      "13:00",
+    ]);
   });
 
   it("initially shows a message saying there are no appointments today", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    expect(document.body.textContent).toContain(
+    expect(document.body).toContainText(
       "There are no appointments for today."
     );
   });
@@ -222,9 +210,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    expect(document.body.textContent).toContain(
-      "Ashley"
-    );
+    expect(document.body).toContainText("Ashley");
   });
 
   it("has a button element in each li", () => {
@@ -233,10 +219,10 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const buttons =
-      elements("li > button");
-    expect(buttons).toHaveLength(2);
-    expect(buttons[0].type).toEqual("button");
+    expect(typesOf(elements("li > *"))).toEqual([
+      "button",
+      "button",
+    ]);
   });
 
   it("renders another appointment when selected", () => {
@@ -245,12 +231,8 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    click(button);
-    expect(document.body.textContent).toContain(
-      "Jordan"
-    );
+    click(secondButton());
+    expect(document.body).toContainText("Jordan");
   });
 
   it("adds toggled class to button when selected", () => {
@@ -259,10 +241,11 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    click(button);
-    expect(button.className).toContain("toggled");
+    click(secondButton());
+    expect(secondButton().className).toContain(
+      "toggled"
+    );
+    expect(secondButton()).toHaveClass("toggled");
   });
 
   it("does not add toggled class if button not selected", () => {
@@ -271,8 +254,10 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    expect(button.className).not.toContain("toggled");
+    expect(secondButton().className).not.toContain(
+      "toggled"
+    );
+
+    expect(secondButton()).not.toHaveClass("toggled");
   });
 });

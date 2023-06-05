@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import {
+  initializeReactContainer,
+  container,
+} from "./reactTestExtensions";
+import {
   Appointment,
   AppointmentsDayView,
 } from "../src/AppointmentsDayView";
@@ -13,11 +17,8 @@ describe("Appointment", () => {
     phoneNumber: "",
   };
 
-  let container;
-
   beforeEach(() => {
-    container = document.createElement("div");
-    document.body.replaceChildren(container);
+    initializeReactContainer();
   });
 
   const render = (component) =>
@@ -159,8 +160,6 @@ describe("Appointment", () => {
 });
 
 describe("AppointmentsDayView", () => {
-  let container;
-
   const today = new Date();
   const twoAppointments = [
     {
@@ -174,8 +173,7 @@ describe("AppointmentsDayView", () => {
   ];
 
   beforeEach(() => {
-    container = document.createElement("div");
-    document.body.replaceChildren(container);
+    initializeReactContainer();
   });
 
   const render = (component) =>

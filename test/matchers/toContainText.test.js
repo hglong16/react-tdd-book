@@ -1,9 +1,8 @@
 import { toContainText } from "./toContainText";
 
-const stripTerminalColor = (text) =>
-  text.replace(/\x1B\[\d+m/g, "");
-
 describe("toContainText matcher", () => {
+  const stripTerminalColor = (text) =>
+    text.replace(/\x1B\[\d+m/g, "");
   it("returns pass is true when text is found in the given DOM element", () => {
     const domElement = {
       textContent: "text to find",

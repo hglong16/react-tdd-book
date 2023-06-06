@@ -31,6 +31,9 @@ export const textOf = (elements) =>
 
 export const form = (id) => element("form");
 
+export const labelFor = (fieldName) =>
+  element(`label[for=${fieldName}]`);
+
 export const field = (fieldName) =>
   form().elements[fieldName];
 

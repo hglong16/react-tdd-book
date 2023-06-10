@@ -17,25 +17,18 @@ export const toBeInputFieldOfType = (
       "toBeInputFieldOfType",
       "element",
       printExpected(expectedType),
-      { isNot: pass }
+      {isNot: pass}
     );
-  const receivedText = () => {
-    if (!received) {
-      return "element was not found";
-    }
-    if (received.tagName !== "INPUT") {
-      return `<${received?.tagName.toLowerCase()}>`;
-    }
 
-    return `<input type=${received.type}>`;
-  };
-  const actualHint = () =>
-    `Actual: ${receivedText()}`;
-  const message = () =>
-    [sourceHint(), actualHint()].join("\n\n");
-
+  const actualHint = () => {
+    if(!received) return "element was not found"
+    if(received?.tagName !== "INPUT") {
+      return `<${received?.tagName.toLowerCase()}>`
+    }
+    return `<input type=${received.type}>`
+  }
+  const message = () => [sourceHint(),"Actual: " + actualHint()].join("\n\n")
   return {
-    pass,
-    message,
+    pass, message
   };
 };

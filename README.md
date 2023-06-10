@@ -26,6 +26,7 @@ You can also run tests in a single test file:
 
 Build the application using this command:
 
-    npm run build
+    npm run build 
+    npm run serve
 
 Then you can open the app by browsing to `dist/index.html`.
